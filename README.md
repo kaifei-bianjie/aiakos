@@ -12,6 +12,15 @@ To implement the PV interface in your Tendermint application you need to initial
 The following example shows you how to implement a simple Aiakos service using env variables (please note that some errors are unhandled for simplicity).
 We are using the tendermint `log` package for the service initialization and further log output.
 
+**Step 1: import validator private key into HSM**
+
+This operation should be done manual,
+there have a example for how to import validator private key into HSM.
+
+[key_test.go](./key_test.go)
+
+**Step 2: Use HSM to sign vote and proposal**
+
 ```
 if os.Getenv("AIAKOS_URL") == "" {
   return nil, errors.New("no Aiakos hsm url specified. Please set AIAKOS_URL in the format host:port")
@@ -52,24 +61,10 @@ if err != nil {
   return nil, err
 }
 
-if os.Getenv("AIAKOS_IMPORT_KEY") == "TRUE" {
-  println("importing private key to Aiakos because AIAKOS_IMPORT_KEY is set.")
-
-  filepv := privval.LoadOrGenFilePV("privval.json")
-  key := filepv.PrivKey.(ed25519.PrivKeyEd25519)
-
-  err = hsm.ImportKey(uint16(aiakosSigningKey), key[:32])
-  if err != nil {
-    println("Could not import key to HSM; skipping this step since it probably already exists")
-  }
-}
-
 ```
 
 Now you can use `hsm` as the PV in your Tendermint App initializer.
 
-## Notice
+## Need improving
 
-This has only been tested with Tendermint `v0.24.x`
-
-Don't consider this _production ready_.
+- Not handle `last_height`, `last_round`, `last_step` when implement SignVote and SignProposal method

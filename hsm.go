@@ -60,6 +60,10 @@ func (a *AiakosPV) OnStop() {
 	a.hsmSessionManager.Destroy()
 }
 
+func (a *AiakosPV) GetAddress() crypto.Address  {
+	return a.GetPubKey().Address()
+}
+
 // GetPubKey returns the public key of the validator.
 // Implements PrivValidator.
 func (a *AiakosPV) GetPubKey() crypto.PubKey {

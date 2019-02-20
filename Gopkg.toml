@@ -26,7 +26,8 @@
 
 [[constraint]]
   name = "github.com/tendermint/tendermint"
-  version = "^v0.30.0"
+  source = "https://github.com/irisnet/tendermint.git"
+  version = "=v0.27.3-iris5"
 
 [[override]]
   name = "golang.org/x/crypto"
