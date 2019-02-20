@@ -68,3 +68,4 @@ Now you can use `hsm` as the PV in your Tendermint App initializer.
 ## Need improving
 
 - Not handle `last_height`, `last_round`, `last_step` when implement SignVote and SignProposal method
+- key can't be get wrapped and put wrapped which created use `yubihsm-go`, because those key haven't capabilities
